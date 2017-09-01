@@ -1,0 +1,73 @@
+html, body {
+
+	margin: 0px;
+
+}
+
+#sideBar {	
+
+	min-height: 100vh;
+	width: 18%;
+	background-color: #069;
+	/*float: left;
+	overflow-y: scroll;*/
+
+}
+
+#sideBarHeader {
+
+	height: 50px;
+	width: 100%;
+	background-color: #222;
+	color: #eee;
+	font-size: 30px;
+	padding: 10px 25px 2px;
+
+}
+
+#questionList {
+
+
+
+}
+
+.questionLink {
+
+	background-color: #28b;
+	color: #eee;
+	text-align: center;
+	padding: 13px;
+	display: block;
+	margin: 6px;
+	text-decoration: none;
+	font-size: 20px;
+	border-radius: 2px;
+	transition-duration: 0.4s;
+
+}
+
+.questionLink:hover {
+
+	background-color: #4ad;
+
+}
+
+#questionDisplay {
+
+	min-height: 100vh;
+	width: 82%;
+	background-color: #fafad2;
+	float: left;
+
+}
+
+#titleHeader {
+
+	height: 50px;
+	background-color: #333;
+	color: #eee;
+	font-size: 30px;
+	font-size: 30px;
+	padding: 10px 35px 2px;
+
+}
