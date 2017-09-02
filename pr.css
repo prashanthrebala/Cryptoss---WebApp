@@ -41,8 +41,9 @@ html, body {
 	margin: 6px;
 	text-decoration: none;
 	font-size: 20px;
-	border-radius: 2px;
+	/*border-radius: 2px;*/
 	transition-duration: 0.4s;
+	cursor: pointer;
 
 }
 
@@ -52,12 +53,22 @@ html, body {
 
 }
 
+.questionLink:focus {
+
+	background-color: #39c;
+	border-color: #4b0082;
+	font-weight: bold;
+
+}
+
 #questionDisplay {
 
 	min-height: 100vh;
 	width: 82%;
 	background-color: #fafad2;
 	float: left;
+	font-size: 18px;
+	transition-duration: 0.3s;
 
 }
 
