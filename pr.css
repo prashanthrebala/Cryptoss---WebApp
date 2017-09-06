@@ -1,16 +1,28 @@
+@import url("fonts.css");
+
 html, body {
 
 	margin: 0px;
+	font-family: 'Calibri';
 
+}
+
+
+p {
+/*	margin: 30px;
+	//word-wrap: break-word;
+	font-family: 'Robotic';*/
+	font-size: 16px;
+	text-align: justify;
 }
 
 #sideBar {	
 
 	min-height: 100vh;
 	width: 18%;
-	background-color: #069;
-	/*float: left;
-	overflow-y: scroll;*/
+	background-color: #48494C;
+	//float: left;
+	//overflow-y: scroll;
 
 }
 
@@ -20,6 +32,8 @@ html, body {
 	width: 100%;
 	background-color: #222;
 	color: #eee;
+	display: flex;;
+	align-items: center;
 	font-size: 30px;
 	padding: 10px 25px 2px;
 
@@ -27,22 +41,22 @@ html, body {
 
 #questionList {
 
-
+	//overflow-y: scroll;
 
 }
 
 .questionLink {
 
-	background-color: #28b;
+	background-color: #008ADA;
 	color: #eee;
 	text-align: center;
-	padding: 13px;
+	padding: 13px 0px 13px 13px;
 	display: block;
 	margin: 6px;
 	text-decoration: none;
 	font-size: 20px;
-	/*border-radius: 2px;*/
 	transition-duration: 0.4s;
+	vertical-align: middle;
 	cursor: pointer;
 
 }
@@ -55,9 +69,62 @@ html, body {
 
 .questionLink:focus {
 
-	background-color: #39c;
-	border-color: #4b0082;
+	background-color: #2980b9;
 	font-weight: bold;
+
+}
+
+.questionStatus {
+
+	position: relative;
+	float: right;
+	border-radius: 50%;
+	height: 27px;
+	width: 27px;
+	background-color: #2980b9;
+	font-size: 18px;
+	padding: 3px;
+	margin-top: -5px;
+	margin-right: 18px;
+	display: flex;
+	align-items: center;
+	text-align: end;
+
+}
+
+.questionStatusS {
+
+	position: relative;
+	float: right;
+	border-radius: 50%;
+	height: 27px;
+	width: 27px;
+	background-color: #00B24B;
+	font-size: 18px;
+	padding: 3px;
+	margin-top: -5px;
+	margin-right: 18px;
+	display: flex;
+	align-items: center;
+	text-align: end;
+
+}
+
+.questionStatusF {
+
+	position: relative;
+	float: right;
+	border-radius: 50%;
+	height: 27px;
+	width: 27px;
+	background-color: #F21D2F;
+	font-size: 18px;
+	padding: 3px;
+	margin-top: -5px;
+	margin-right: 18px;
+	display: flex;
+	align-items: center;
+	text-align: end;
 
 }
 
@@ -65,10 +132,16 @@ html, body {
 
 	min-height: 100vh;
 	width: 82%;
-	background-color: #fafad2;
+	background-color: /*#FFC100;*/#fafad2;
 	float: left;
 	font-size: 18px;
 	transition-duration: 0.3s;
+
+}
+
+#questionDescription {
+
+	padding: 10px 30px;
 
 }
 
@@ -79,6 +152,8 @@ html, body {
 	color: #eee;
 	font-size: 30px;
 	font-size: 30px;
-	padding: 10px 35px 2px;
+	display: flex;
+	align-items: center;
+	padding: 10px 30px 2px;
 
 }

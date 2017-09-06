@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cryptoss</title>
+	<link rel="stylesheet" type="text/css" href="pr.css">
+	<script type="text/javascript" src="questions.js"></script>
+	<script type="text/javascript">
+		var currentQuestion = 0;
+		function displayQuestion(n)
+		{
+			document.getElementById("titleHeader").innerHTML = "Question " + n;
+			document.getElementById("questionDescription").innerHTML = questions[n-1];
+			currentQuestion = n;
+		}
+	</script>
+</head>
+<body>
+	<div style="display: flex;"> <!-- why the display flex? -->
+		<div id="sideBar">
+			<div id="sideBarHeader">
+				Problems
+			</div>
+			<div id="questionList">
+				<div href="#" class="questionLink" onclick="displayQuestion(1)"> Question 1 </div>
+				<div href="#" class="questionLink" onclick="displayQuestion(2)"> Question 2 </div>
+				<div href="#" class="questionLink" onclick="displayQuestion(3)"> Question 3 </div>
+				<div href="#" class="questionLink" onclick="displayQuestion(4)"> Question 4 </div>
+				<div href="#" class="questionLink" onclick="displayQuestion(5)"> Question 5 </div>
+				<div href="#" class="questionLink" onclick="displayQuestion(6)"> Question 6 </div>
+				<div href="#" class="questionLink" onclick="displayQuestion(7)"> Question 7 </div>
+				<div href="#" class="questionLink" onclick="displayQuestion(8)"> Question 8 </div>
+				<div href="#" class="questionLink" onclick="displayQuestion(9)"> Question 9 </div>
+				<div href="#" class="questionLink" onclick="displayQuestion(10)"> Question 10 </div>
+				<div href="#" class="questionLink" onclick="displayQuestion(11)"> Question 11 </div>
+				<div href="#" class="questionLink" onclick="displayQuestion(12)"> Question 12 </div>
+			</div>
+		</div>
+		<div id="questionDisplay">
+			<div id="titleHeader" style="display: flex;">
+				<div>
+					<!-- <img src='img/Cryptoss White.png' height="50px" width="50px"> -->
+				</div>
+				<div>
+					Cryptoss: Super Heroes
+				</div>
+			</div>
+			<div id="questionDescription">
+				<p>
+				This event consists of 2 rounds. The first round will be an ordinary competitive programming
+				round where the contestants will be given a desktop application and a PDF (for the second
+				member of the team). The questions will be the same in the App and in the pdf.
+				</p>
+				<p>
+				The contestants are required to solve the questions and enter the output in the application
+				which will be tested. A correct answer will award the team a certain number of points which is
+				predetermined based on the difficulty of the question. The top 8 – 10 teams qualify for the final
+				round.
+				</p>
+				<p>
+				The second round will have a new concept of Super Powers. Each time is again presented with
+				questions and PDFs like earlier. Super Powers will be earned by teams by solving a question/ set
+				of questions. A Super Power can be used to be advantageous to the user. For example; a super
+				power may let the user replace a medium question with an easy question, or will allow the user
+				to freeze (stop coding) for a certain period of time.
+				</p>
+				<p>
+				A random Super Power will be given to each team at the beginning of the round and can be
+				used only 15 minutes after the commencement of the event. A Super Power can be achieved by
+				solving a certain question/ set of questions (based on difficulty).
+				The final results will be based on the total number of points scored.
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
