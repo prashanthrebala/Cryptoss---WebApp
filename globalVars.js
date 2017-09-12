@@ -3,9 +3,9 @@ var currentQuestion = 0;
 var attempts = [5, 5, 5, 5, 5, 5, 5, 7, 7, 7, 9, 9];
 
 
-function displayQuestion(n)
+function displayQuestion(questionNumberDiv, questionDetailsDiv, n)
 {
-	document.getElementById("titleHeader").innerHTML = "Question " + n;
-	document.getElementById("questionDescription").innerHTML = questions[n-1];
+	questionNumberDiv.innerHTML = "Question " + n;
+	questionDetailsDiv.innerHTML = questions[n-1];
 	currentQuestion = n;
 }
