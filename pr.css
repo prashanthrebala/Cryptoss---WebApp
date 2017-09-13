@@ -11,6 +11,12 @@ p {
 
 	font-size: 16px;
 	text-align: justify;
+	line-height: 20px;
+
+}
+
+b {
+	font-family: 'Consolas';
 }
 
 * { 
@@ -48,6 +54,7 @@ input[type=button] {
     color: #fff;
     font-size: 16px;
     background-color: #4CAF50;
+    transition-duration: 0.3s;
 
 }
 
@@ -85,7 +92,7 @@ input[type=button]:hover {
 
 	height: 100%;
 	width: 18%;
-	background-color: #323542;
+	background-color: #0F0D08;
 	color: #eee;
 	display: flex;
 	align-items: center;
@@ -98,7 +105,7 @@ input[type=button]:hover {
 
 	height: 100%;
 	width: 83%;
-	background-color: #32464F;
+	background-color: #27271F;
 	color: #eee;
 	font-size: 30px;
 	font-size: 30px;
@@ -119,23 +126,17 @@ input[type=button]:hover {
 
 	height: 91vh;
 	width: 18%;
-	background-color: #404F59;
+	background-color: #0F0D08;
 	float: left;
 	overflow-y: scroll;
 
 }
 
-/*.questionList {
-
-	//	overflow-y: scroll;
-
-}*/
-
 .questionLink {
 
 	height: 48px;
 	width: 95%;
-	background-color: #5D646F;
+	background-color: #27271F;
 	color: #eee;
 	text-align: center;
 	/*padding: 13px 0px 13px 0px;*/
@@ -168,52 +169,52 @@ input[type=button]:hover {
 .questionStatus {
 
 	//display: inline-block;
-	border-radius: 4px;
-	height: 76%;
-	width: 17%;
-	background-color: #404F59;
+	border-radius: 50%;
+	height: 68%;
+	width: 15%;
+	background-color: #171510;
 	font-size: 18px;
 	display: flex;
 	align-items: center;
-	padding-left: 15px;
+	padding-left: 12.5px;
 	margin-left: 10px;
-	-moz-box-shadow:    1px 1px 1px 1px #484848 inset;
-  	-webkit-box-shadow: 1px 1px 1px 1px #484848 inset;
-  	box-shadow:         1px 1px 1px 1px #484848 inset;
+/*	-moz-box-shadow:    0px 0px 1.5px 1.5px #484848 inset;
+  	-webkit-box-shadow: 0px 0px 1.5px 1.5px #484848 inset;
+  	box-shadow:         0px 0px 1.5px 1.5px #484848 inset;*/
 }
 
 .questionStatusS {
 
 	//display: inline-block;
-	border-radius: 4px;
-	height: 76%;
-	width: 17%;
-	background-color: #2E864B;
+	border-radius: 50%;
+	height: 68%;
+	width: 15%;
+	background-color: #37B76C;
 	font-size: 18px;
 	display: flex;
 	align-items: center;
-	padding-left: 15px;
+	padding-left: 12px;
 	margin-left: 10px;
-	-moz-box-shadow:    1px 1px 1px 1px #484848 inset;
-  	-webkit-box-shadow: 1px 1px 1px 1px #484848 inset;
-  	box-shadow:         1px 1px 1px 1px #484848 inset;
+	/*-moz-box-shadow:    0px 0px 1.5px 1.5px #eee inset;
+  	-webkit-box-shadow: 0px 0px 1.5px 1.5px #eee inset;
+  	box-shadow:         0px 0px 1.5px 1.5px #eee inset;*/
 }
 
 .questionStatusF {
 
 	//display: inline-block;
-	border-radius: 4px;
-	height: 76%;
-	width: 17%;
-	background-color: #A11410;//#863A38;
+	border-radius: 50%;
+	height: 68%;
+	width: 15%;
+	background-color: #FF3F2F;///*#E82C0C;//#A11410;//*/#863A38;
 	font-size: 18px;
 	display: flex;
 	align-items: center;
 	padding-left: 15px;
 	margin-left: 10px;
-	-moz-box-shadow:    1px 1px 1px 1px #484848 inset;
-  	-webkit-box-shadow: 1px 1px 1px 1px #484848 inset;
-  	box-shadow:         1px 1px 1px 1px #484848 inset;
+	/*-moz-box-shadow:    0px 0px 1.5px 1.5px #eee inset;
+  	-webkit-box-shadow: 0px 0px 1.5px 1.5px #eee inset;
+  	box-shadow:         0px 0px 1.5px 1.5px #eee inset;*/
 }
 
 .questionDisplay {
@@ -241,6 +242,6 @@ input[type=button]:hover {
 	width: 100%;
 	position: fixed;
 	bottom: 0;
-	background-color: #32464F;
+	background-color: #27271F;
 
 }
