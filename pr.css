@@ -2,7 +2,11 @@
 
 html, body {
 
-	margin: 0px;
+	margin: 0;
+	border: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
 	font-family: 'Calibri';
 
 }
@@ -76,15 +80,25 @@ input[type=button]:hover {
 
 }
 
+#gg {
+
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+
+}
+
 .titleBar {
 
-	height: 55px;
+	padding: 0;
+	margin: 0;
+	height: 9%;
 	width: 100%;
 	display: flex;
 	position: fixed;
 	font-family: 'Roboto';
 	box-shadow: 0px 5px 5px #444;
-	top: 0px;
 
 }
 
@@ -104,7 +118,7 @@ input[type=button]:hover {
 .appHeader {
 
 	height: 100%;
-	width: 83%;
+	width: 82%;
 	background-color: #27271F;
 	color: #eee;
 	font-size: 30px;
@@ -118,17 +132,32 @@ input[type=button]:hover {
 .content {
 
 	width: 100%;
-	margin-top: 55px;
+	height: 91%;
+	position: absolute;
+	bottom: 0;
 
 }
 
 .sideBar {	
 
-	height: 91vh;
+	margin: 0;
+	padding: 0;
+	height: 100%;
 	width: 18%;
 	background-color: #0F0D08;
 	float: left;
 	overflow-y: scroll;
+
+}
+
+.questionDisplay {
+
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 82%;
+	background-color: #eee;
+	font-size: 18px;
 
 }
 
@@ -139,7 +168,6 @@ input[type=button]:hover {
 	background-color: #27271F;
 	color: #eee;
 	text-align: center;
-	/*padding: 13px 0px 13px 0px;*/
 	display: flex;
 	margin: 6px;
 	text-decoration: none;
@@ -161,14 +189,12 @@ input[type=button]:hover {
 	height: 100%;
 	width: 65%;
 	padding-top: 11px;
-	/*background-color: #000;*/
 	margin-left: 20px;
 
 }
 
 .questionStatus {
 
-	/*display: inline-block;*/
 	border-radius: 50%;
 	height: 68%;
 	width: 15%;
@@ -178,14 +204,11 @@ input[type=button]:hover {
 	align-items: center;
 	padding-left: 12.5px;
 	margin-left: 10px;
-/*	-moz-box-shadow:    0px 0px 1.5px 1.5px #484848 inset;
-  	-webkit-box-shadow: 0px 0px 1.5px 1.5px #484848 inset;
-  	box-shadow:         0px 0px 1.5px 1.5px #484848 inset;*/
+
 }
 
 .questionStatusS {
 
-	/*display: inline-block;*/
 	border-radius: 50%;
 	height: 68%;
 	width: 15%;
@@ -195,14 +218,11 @@ input[type=button]:hover {
 	align-items: center;
 	padding-left: 12px;
 	margin-left: 10px;
-	/*-moz-box-shadow:    0px 0px 1.5px 1.5px #eee inset;
-  	-webkit-box-shadow: 0px 0px 1.5px 1.5px #eee inset;
-  	box-shadow:         0px 0px 1.5px 1.5px #eee inset;*/
+
 }
 
 .questionStatusF {
 
-	/*display: inline-block;*/
 	border-radius: 50%;
 	height: 68%;
 	width: 15%;
@@ -212,33 +232,21 @@ input[type=button]:hover {
 	align-items: center;
 	padding-left: 12px;
 	margin-left: 10px;
-	/*-moz-box-shadow:    0px 0px 1.5px 1.5px #eee inset;
-  	-webkit-box-shadow: 0px 0px 1.5px 1.5px #eee inset;
-  	box-shadow:         0px 0px 1.5px 1.5px #eee inset;*/
-}
-
-.questionDisplay {
-
-	min-height: 91vh;
-	width: 82%;
-	background-color: #eee;
-	float: left;
-	font-size: 18px;
-	transition-duration: 0.3s;
 
 }
 
 .questionDescription {
 
 	padding: 10px 30px;
-	height: 50%;
-	margin-bottom: 55px;
+	height: 91%;
+	background-color: #eee;
+	overflow-y: auto;
 
 }
 
 .submissionZone {
 
-	height: 55px;
+	height: 9%;
 	width: 100%;
 	position: fixed;
 	bottom: 0;
