@@ -3,18 +3,17 @@
 <head>
 	<title>Cryptoss</title>
 	<link rel="stylesheet" type="text/css" href="pr.css">
-	<script type="text/javascript" src="questions.js">  </script>
 	<script type="text/javascript" src="globalVars.js"> </script>
+	<script type="text/javascript" src="questions.js">  </script>
 	<script type="text/javascript">
-		var questionNumberDiv, questionDetailsDiv;
-		function getQuestion(n)
-		{
-			displayQuestion(questionNumberDiv, questionDetailsDiv, n, questions);
-		}
+		var questionNumberDiv, questionDetailsDiv, answerTextField;
 		function setVariables()
 		{
 			questionNumberDiv = document.getElementById("appHeaderID");
 			questionDetailsDiv = document.getElementById("questionDescriptionID");
+			answerTextField = document.getElementById("answerText");
+			for(var i=1;i<=12;i++)
+				document.getElementById("qn"+i+"S").innerHTML = attempts[i];
 		}
 	</script>
 </head>
@@ -32,54 +31,67 @@
 
 		<div class="content" style="display: flex;">
 			<div class="sideBar">
-				<div href="#" class="questionLink" onclick="getQuestion(1)"> 
-					<div class="questionNumber">Question 1</div>
-					<div class="questionStatus">5</div>
+				<hr style="width: 100%;">
+				<div id="qn1" class="questionLink" onclick="displayQuestion(1)"> 
+					<div id="qn1T" class="questionNumber">Question 1</div>
+					<div id="qn1S" class="questionStatus"></div>
 				</div>
-				<div href="#" class="questionLink" onclick="getQuestion(2)"> 
-					<div class="questionNumber">Question 2</div>
-					<div class="questionStatusS">&#10003;</div>
+				<hr>
+				<div id="qn2" class="questionLink" onclick="displayQuestion(2)"> 
+					<div id="qn2T" class="questionNumber">Question 2</div>
+					<div id="qn2S" class="questionStatus"></div>
 				</div>
-				<div href="#" class="questionLink" onclick="getQuestion(3)"> 
-					<div class="questionNumber">Question 3</div>
-					<div class="questionStatusS">&#10003;</div>
+				<hr>
+				<div id="qn3" class="questionLink" onclick="displayQuestion(3)"> 
+					<div id="qn3T" class="questionNumber">Question 3</div>
+					<div id="qn3S" class="questionStatus"></div>
 				</div>
-				<div href="#" class="questionLink" onclick="getQuestion(4)"> 
-					<div class="questionNumber">Question 4</div>
-					<div class="questionStatusF">3</div>
+				<hr>
+				<div id="qn4" class="questionLink" onclick="displayQuestion(4)"> 
+					<div id="qn4T" class="questionNumber">Question 4</div>
+					<div id="qn4S" class="questionStatus"></div>
 				</div>
-				<div href="#" class="questionLink" onclick="getQuestion(5)"> 
-					<div class="questionNumber">Question 5</div>
-					<div class="questionStatusS">&#10003;</div>
+				<hr>
+				<div id="qn5" class="questionLink" onclick="displayQuestion(5)"> 
+					<div id="qn5T" class="questionNumber">Question 5</div>
+					<div id="qn5S" class="questionStatus"></div>
 				</div>
-				<div href="#" class="questionLink" onclick="getQuestion(6)"> 
-					<div class="questionNumber">Question 6</div>
-					<div class="questionStatusF">1</div>
+				<hr>
+				<div id="qn6" class="questionLink" onclick="displayQuestion(6)"> 
+					<div id="qn6T" class="questionNumber">Question 6</div>
+					<div id="qn6S" class="questionStatus"></div>
 				</div>
-				<div href="#" class="questionLink" onclick="getQuestion(7)"> 
-					<div class="questionNumber">Question 7</div>
-					<div class="questionStatus">5</div>
+				<hr>
+				<div id="qn7" class="questionLink" onclick="displayQuestion(7)"> 
+					<div id="qn7T" class="questionNumber">Question 7</div>
+					<div id="qn7S" class="questionStatus"></div>
 				</div>
-				<div href="#" class="questionLink" onclick="getQuestion(8)"> 
-					<div class="questionNumber">Question 8</div>
-					<div class="questionStatus">5</div>
+				<hr>
+				<div id="qn8" class="questionLink" onclick="displayQuestion(8)"> 
+					<div id="qn8T" class="questionNumber">Question 8</div>
+					<div id="qn8S" class="questionStatus"></div>
 				</div>
-				<div href="#" class="questionLink" onclick="getQuestion(9)"> 
-					<div class="questionNumber">Question 9</div>
-					<div class="questionStatus">5</div>
+				<hr>
+				<div id="qn9" class="questionLink" onclick="displayQuestion(9)"> 
+					<div id="qn9T" class="questionNumber">Question 9</div>
+					<div id="qn9S" class="questionStatus"></div>
 				</div>
-				<div href="#" class="questionLink" onclick="getQuestion(10)"> 
-					<div class="questionNumber">Question 10</div>
-					<div class="questionStatus">5</div>
+				<hr>
+				<div id="qn10" class="questionLink" onclick="displayQuestion(10)"> 
+					<div id="qn10T" class="questionNumber">Question 10</div>
+					<div id="qn10S" class="questionStatus"></div>
 				 </div>
-				<div href="#" class="questionLink" onclick="getQuestion(11)"> 
-					<div class="questionNumber">Question 11</div>
-					<div class="questionStatus">5</div>
+				 <hr>
+				<div id="qn11" class="questionLink" onclick="displayQuestion(11)"> 
+					<div id="qn11T" class="questionNumber">Question 11</div>
+					<div id="qn11S" class="questionStatus"></div>
 				 </div>
-				<div href="#" class="questionLink" onclick="getQuestion(12)"> 
-					<div class="questionNumber">Question 12</div>
-					<div class="questionStatus">5</div>
+				 <hr>
+				<div id="qn12" class="questionLink" onclick="displayQuestion(12)"> 
+					<div id="qn12T" class="questionNumber">Question 12</div>
+					<div id="qn12S" class="questionStatus"></div>
 				 </div>
+				 <hr style="width: 100%;">
 			</div>
 			<div class="questionDisplay">
 				<div id="questionDescriptionID" class="questionDescription">
@@ -109,8 +121,8 @@
 					</p>
 				</div>
 				<div class="submissionZone">
-					<input type="text" placeholder="Enter your output here..">
-					<input type="button" value="Submit">
+					<input id="answerText" type="text" placeholder="Enter your output here..">
+					<input type="button" value="Submit" onclick="submit();">
 				</div>
 			</div>
 		</div>

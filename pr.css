@@ -29,6 +29,18 @@ b {
      box-sizing: border-box; 
 }
 
+hr { 
+	border: 0; 
+	height: 0.9px; 
+	width: 90%;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	background-image: -webkit-linear-gradient(left, #27271F, #8c8b8b, #27271F);
+	background-image: -moz-linear-gradient(left, #27271F, #8c8b8b, #27271F);
+	background-image: -ms-linear-gradient(left, #27271F, #8c8b8b, #27271F);
+	background-image: -o-linear-gradient(left, #27271F, #8c8b8b, #27271F); 
+}
+
 input[type=text] {
 
 	width: 72%;
@@ -98,7 +110,7 @@ input[type=button]:hover {
 	display: flex;
 	position: fixed;
 	font-family: 'Roboto';
-	box-shadow: 0px 5px 5px #444;
+	z-index: 1;
 
 }
 
@@ -126,6 +138,7 @@ input[type=button]:hover {
 	display: flex;
 	align-items: center;
 	padding-left: 20px;
+	box-shadow: 0px 2px 5px #333;
 
 }
 
@@ -146,6 +159,7 @@ input[type=button]:hover {
 	width: 18%;
 	background-color: #0F0D08;
 	float: left;
+	overflow-x: hidden;
 	overflow-y: scroll;
 
 }
@@ -163,13 +177,12 @@ input[type=button]:hover {
 
 .questionLink {
 
-	height: 48px;
-	width: 95%;
-	background-color: #27271F;
+	height: 9%;
+	width: 100%;
+	background-color: #0F0D08;//#27271F;
 	color: #eee;
 	text-align: center;
 	display: flex;
-	margin: 6px;
 	text-decoration: none;
 	font-size: 20px;
 	transition-duration: 0.4s;
@@ -189,49 +202,63 @@ input[type=button]:hover {
 	height: 100%;
 	width: 65%;
 	padding-top: 11px;
-	margin-left: 20px;
+	margin-left: 25px;
 
 }
 
 .questionStatus {
 
 	border-radius: 50%;
-	height: 68%;
-	width: 15%;
+	height: 50%;
+	width: 11%;
 	background-color: #171510;
-	font-size: 18px;
+	border: 2px solid #27271F;
+	font-size: 15px;
 	display: flex;
 	align-items: center;
-	padding-left: 12.5px;
-	margin-left: 10px;
+	padding-left: 3%;
+	padding-top: 1%;
+	margin-left: 0px;
+
+}
+
+.questionStatus:hover .questionStatus{
+
+	background-color: #858599;
 
 }
 
 .questionStatusS {
 
 	border-radius: 50%;
-	height: 68%;
-	width: 15%;
-	background-color: #37B76C;
-	font-size: 18px;
+	height: 50%;
+	width: 11%;
+	background-color: #171510;
+	border: 2px solid #37B76C;
+	color: #37B76C;
+	font-size: 15px;
 	display: flex;
 	align-items: center;
-	padding-left: 12px;
-	margin-left: 10px;
-
+	padding-left: 2%;
+	padding-top: 1%;
+	margin-left: 0px;
+	/*37B76C*/
 }
 
 .questionStatusF {
 
 	border-radius: 50%;
-	height: 68%;
-	width: 15%;
-	background-color: #FF3F2F;
-	font-size: 18px;
+	height: 50%;
+	width: 11%;
+	background-color: #171510;
+	border: 2px solid #FF3F2F;
+	color: #FF3F2F;
+	font-size: 15px;
 	display: flex;
 	align-items: center;
-	padding-left: 12px;
-	margin-left: 10px;
+	padding-left: 3%;
+	padding-top: 1%;
+	margin-left: 0px;
 
 }
 
