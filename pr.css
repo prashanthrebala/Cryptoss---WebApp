@@ -222,12 +222,6 @@ input[type=button]:hover {
 
 }
 
-.questionStatus:hover .questionStatus{
-
-	background-color: #858599;
-
-}
-
 .questionStatusS {
 
 	border-radius: 50%;
@@ -242,7 +236,8 @@ input[type=button]:hover {
 	padding-left: 2%;
 	padding-top: 1%;
 	margin-left: 0px;
-	/*37B76C*/
+	font-family: 'courier';
+
 }
 
 .questionStatusF {
