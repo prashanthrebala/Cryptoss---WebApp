@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 	<title>Cryptoss</title>
 	<link rel="stylesheet" type="text/css" href="pr.css">
-	<script type="text/javascript" src="globalVars.js"> </script>
-	<script type="text/javascript" src="questions.js">  </script>
-	<script type="text/javascript" src="fun256.js"></script>
+
+	<script type="text/javascript" src="globalVars.js"></script>
+	<script type="text/javascript" src="questions.js"></script>
+	<script type="text/javascript" src="sha256.js"></script>
 	<script type="text/javascript">
 		var questionNumberDiv, questionDetailsDiv;
 		var answerTextField, submitButton;
@@ -17,19 +19,37 @@
 			submitButton = document.getElementById("submitButton");
 			for(var i=1;i<=12;i++)
 				document.getElementById("qn"+i+"S").innerHTML = attempts[i];
-			alert(Sha256.hash("abc"));
 		}
+
+		function openNav()
+		{ document.getElementById("statBarID").style.width = "23%"; }
+
+		function closeNav()
+		{ document.getElementById("statBarID").style.width = "0"; }
+
 	</script>
+
 </head>
 <body onload="setVariables();">
-	<div id="gg">
-
+	<div id="gg" style="display: flex;">
 		<div class="titleBar">
 			<div class="sideBarHeader">
 				Problems
 			</div>
 			<div id="appHeaderID" class="appHeader">
 				Cryptoss: Super Heroes
+			</div>
+			<div id="statCheckID" class="statCheck" onclick="openNav();">
+					&#9776;
+			</div>
+		</div>
+
+		<div id="statBarID" class="statBar">
+			<div id="closeStatBarID" class="closeStatBar">
+				<span onclick="closeNav();" style="cursor: pointer;">&times;</span>
+			</div>
+			<div id="statsID" class="stats">
+				
 			</div>
 		</div>
 
@@ -132,6 +152,9 @@
 					<input id="submitButton" type="button" value="Submit" onclick="submit();">
 				</div>
 			</div>
+
+			
+
 		</div>
 	</div>
 </body>

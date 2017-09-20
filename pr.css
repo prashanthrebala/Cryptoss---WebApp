@@ -111,6 +111,7 @@ input[type=button]:hover {
 	position: fixed;
 	font-family: 'Roboto';
 	z-index: 1;
+	box-shadow: 0px 2px 5px #333;
 
 }
 
@@ -130,7 +131,7 @@ input[type=button]:hover {
 .appHeader {
 
 	height: 100%;
-	width: 82%;
+	width: 78.5%;
 	background-color: #27271F;
 	color: #eee;
 	font-size: 30px;
@@ -139,6 +140,60 @@ input[type=button]:hover {
 	align-items: center;
 	padding-left: 20px;
 	box-shadow: 0px 2px 5px #333;
+
+}
+
+.statCheck {
+
+	height: 100%;
+	width: 3.5%;
+	display: flex;
+	float: right;
+	align-items: center;
+	color: #eee;
+	background-color: #27271F;
+	font-size: 20px;
+	transition-duration: 0.3s;
+	padding-left: 15px; 
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	cursor: pointer;
+	box-shadow: 0px 2px 5px #333;
+
+}
+
+.statCheck:hover {
+
+	text-shadow: 0 0 25px #fff;
+
+}
+
+.statBar {
+
+	height: 100%;
+	width: 0%;
+	background-color: #222;
+	opacity: 0.95;
+	float: right;
+	margin-right: 0px;
+	margin-left: auto;
+	z-index: 2;
+	transition-duration: 0.5s;
+	overflow-x: hidden;
+
+}
+
+.closeStatBar {
+
+	position: fixed;
+	padding-left: 20.5%;
+	height: 9%;
+	color: #eee;
+	font-size: 40px;
+	padding-top: 4px;
+	padding-right: 10px;
+	display: flex;
 
 }
 
@@ -179,7 +234,7 @@ input[type=button]:hover {
 
 	height: 9%;
 	width: 100%;
-	background-color: #0F0D08;//#27271F;
+	background-color: #0F0D08;
 	color: #eee;
 	text-align: center;
 	display: flex;
