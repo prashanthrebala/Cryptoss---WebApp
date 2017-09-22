@@ -1,5 +1,7 @@
 
 var buildPhase = true;
+var startTimeStamp = 0;
+var endTimeStamp = 0;
 var currentQuestion = 0;
 var participantScore = 0;
 var attempts = [100, 5, 5, 5, 5, 5, 5, 5, 7, 7, 7, 9, 9];
@@ -33,11 +35,18 @@ function submitX()
 
 	attempted[currentQuestion] = true;
 
+
 	var typedAnswer = answerTextField.value;
 	var cur = document.getElementById("qn"+currentQuestion+"S");
 
 	if(typedAnswer.length <= 0)
 		return;
+
+	if(submissionHistory[currentQuestion].indexOf(typedAnswer) >= 0)
+	{
+		 if(!confirm("You have already submitted this answer for this question. Are you sure you want to submit again?"))
+		 		return;
+	}
 
 	submissionHistory[currentQuestion].push(typedAnswer);
 
@@ -48,6 +57,7 @@ function submitX()
 		cur.innerHTML = '&#10003;'
 		solved[currentQuestion] = true;
 		participantScore += scores[currentQuestion];
+		document.getElementById("sDinner2").innerHTML = participantScore;
 	}
 	else if(attempts[currentQuestion] > 0)
 	{

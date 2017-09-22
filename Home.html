@@ -5,9 +5,11 @@
 	<title>Cryptoss</title>
 	<link rel="stylesheet" type="text/css" href="pr.css">
 
+	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery.countdown.min.js"></script>
+	<script type="text/javascript" src="sha256.js"></script>
 	<script type="text/javascript" src="globalVars.js"></script>
 	<script type="text/javascript" src="questions.js"></script>
-	<script type="text/javascript" src="sha256.js"></script>
 	<script type="text/javascript">
 		var questionNumberDiv, questionDetailsDiv;
 		var answerTextField, submitButton;
@@ -24,6 +26,21 @@
 				submissionHistory.push([]);
 			}
 
+			startTimeStamp = new Date().getTime();
+			endTimeStamp = startTimeStamp + 0.1 * 60 * 1000;
+			$('#countDown').countdown(endTimeStamp)
+				.on('update.countdown', function(event) 
+				{
+					var format = '%H:%M:%S';
+					$(this).html(event.strftime(format));
+				})
+				.on('finish.countdown', function(event) 
+				{
+					// alert("Your time's up!");
+					$("#countDown").innerHTML = "00:00:00";
+					document.getElementById("countDown").innerHTML = "00:00:00";
+				});
+
 		}
 
 		function openNav()
@@ -31,15 +48,6 @@
 			document.getElementById("myScore").innerHTML = participantScore;
 			document.getElementById("mySidenav").style.width = "23%"; 
 			document.getElementById("mySidenav").style.transition = "0.5s";
-			var submissionHistoryDetailsString = "";
-			for(var i=1;i<=12;i++)
-			{
-				if(attempted[i])
-				{
-					submissionHistoryDetailsString += "<div class='submissionHistDiv'>Question " + i + ": " + submissionHistory[i].join(",  ") + "</div><br>";
-				}
-			}
-			document.getElementById("submissionHistoryDetails").innerHTML = submissionHistoryDetailsString;
 		}
 
 		function closeNav()
@@ -61,6 +69,10 @@
 			<div id="appHeaderID" class="appHeader">
 				Cryptoss: Super Heroes
 			</div>
+			<div id="scoreDisplayID" class="scoreDisplay">
+				<div class="scoreDisplayText"><div id="sDinner1">score: </div></div>
+				<div class="scoreDisplayNumeric"><div id="sDinner2">322</div></div>
+			</div>
 			<div id="statCheckID" class="statCheck" onclick="openNav();">
 					&#9776;
 			</div>
@@ -68,14 +80,21 @@
 
 		<div id="mySidenav" class="sidenav">
 			<div class="closebtn" onclick="closeNav()">&times;</div>
+			<hr>
 			<div style="color: #ddd; padding-left: 4%; font-size: 20px;">score: </div>
 			<div id="myScore" style="color: #ddd; text-align: center; font-size: 60px;"></div>
 			<hr>
-			<div class="sidenavDiv">Submission history:</div>
-			<hr>
-			<div id="submissionHistoryDetails">
-
+			<div style="display: flex; width: 100%; height: 10%; align-items: center;">
+				<div style="position: absolute; left: 11%; font-size: 18px;
+							color: #ddd;">
+					time remaining: 
+				</div>
+				<div id="countDown" style="float: right; position: absolute; left: 53%; font-size: 30px;
+								color: #ddd;">
+							
+				</div>
 			</div>
+			<hr>
 		</div>
 
 		<div class="content" style="display: flex;">
@@ -140,6 +159,7 @@
 					<div id="qn12T" class="questionNumber">Question 12</div>
 					<div id="qn12S" class="questionStatus"></div>
 				 </div>
+
 				 <hr style="width: 100%;">
 			</div>
 			<div class="questionDisplay">
@@ -171,7 +191,7 @@
 				</div>
 				<div class="submissionZone">
 					<input id="answerText" type="text" 
-							placeholder="Enter your output here.."">
+							placeholder="Enter your output here...">
 					<input id="submitButton" type="button" value="Submit" onclick="submit();">
 				</div>
 			</div>
