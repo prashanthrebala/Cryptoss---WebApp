@@ -53,15 +53,15 @@ class Sha256 {
             for (let t=0;  t<16; t++) 
                 W[t] = M[i][t];
             for (let t=16; t<64; t++)
-                W[t] = (Sha256.σ1(W[t-2]) + W[t-7] + Sha256.σ0(W[t-15]) + W[t-16]) >>> 0;
+                W[t] = (Sha256.sigma1(W[t-2]) + W[t-7] + Sha256.sigma0(W[t-15]) + W[t-16]) >>> 0;
 
             let a = H[0], b = H[1], c = H[2], d = H[3], 
                 e = H[4], f = H[5], g = H[6], h = H[7];
 
             for (let t=0; t<64; t++) 
             {
-                const T1 = h + Sha256.Σ1(e) + Sha256.Ch(e, f, g) + K[t] + W[t];
-                const T2 =     Sha256.Σ0(a) + Sha256.Maj(a, b, c);
+                const T1 = h + Sha256.Sigma1(e) + Sha256.Ch(e, f, g) + K[t] + W[t];
+                const T2 =     Sha256.Sigma0(a) + Sha256.Maj(a, b, c);
                 h = g;
                 g = f;
                 f = e;
@@ -108,10 +108,10 @@ class Sha256 {
 
     static ROTR(n, x) { return (x >>> n) | (x << (32-n)); }
 
-    static Σ0(x) { return Sha256.ROTR(2,  x) ^ Sha256.ROTR(13, x) ^ Sha256.ROTR(22, x); }
-    static Σ1(x) { return Sha256.ROTR(6,  x) ^ Sha256.ROTR(11, x) ^ Sha256.ROTR(25, x); }
-    static σ0(x) { return Sha256.ROTR(7,  x) ^ Sha256.ROTR(18, x) ^ (x>>>3);  }
-    static σ1(x) { return Sha256.ROTR(17, x) ^ Sha256.ROTR(19, x) ^ (x>>>10); }
+    static Sigma0(x) { return Sha256.ROTR(2,  x) ^ Sha256.ROTR(13, x) ^ Sha256.ROTR(22, x); }
+    static Sigma1(x) { return Sha256.ROTR(6,  x) ^ Sha256.ROTR(11, x) ^ Sha256.ROTR(25, x); }
+    static sigma0(x) { return Sha256.ROTR(7,  x) ^ Sha256.ROTR(18, x) ^ (x>>>3);  }
+    static sigma1(x) { return Sha256.ROTR(17, x) ^ Sha256.ROTR(19, x) ^ (x>>>10); }
     static Ch(x, y, z)  { return (x & y) ^ (~x & z); }          
     static Maj(x, y, z) { return (x & y) ^ (x & z) ^ (y & z); } 
 
