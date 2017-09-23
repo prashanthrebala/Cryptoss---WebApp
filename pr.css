@@ -78,18 +78,6 @@ input[type=button]:hover {
 
 }
 
-/*.openScreen {
-
-	height: 100%;
-	width: 100%;
-	background-color: rgba(47, 79, 79, 0.95);
-	position: fixed;
-	z-index: 1;
-	top: 0;
-	padding-top: 30px;
-
-}*/
-
 #gg {
 
 	height: 100%;
@@ -210,49 +198,66 @@ input[type=button]:hover {
 
 }
 
-.statBar {
-
-	height: 100%;
-	width: 0%;
-	background-color: #222;
-	opacity: 0.95;
-	margin-right: 0px;
-	margin-left: auto;
-	z-index: 2;
-	transition-duration: 0.5s;
-	display: flex;
-	overflow-x: hidden;
-
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    opacity: 0.98;
 }
 
-.closeStatBar {
-
-	position: fixed;
-	padding-left: 20.5%;
-	height: 9%;
-	width: 100%;
+.closebtn {
 	color: #eee;
-	font-size: 40px;
-	padding-top: 4px;
-	padding-right: 10px;
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    cursor: pointer;
+}
+
+.sideNavScoreText {
+	color: #ddd;
+	padding-left: 4%;
+	font-size: 20px;
+}
+
+#myScore {
+	color: #ddd;
+	text-align: center;
+	font-size: 60px;
+}
+
+.timeRemaining {
+
+	display: flex;
+	width: 100%;
+	height: 10%;
+	align-items: center;
 
 }
 
-.stats {
+.timeRemainingText {
 
 	position: absolute;
-	height: 91%;
-	color: #eee;
-	top: 9%;
+	left: 11%;
+	font-size: 18px;
+	color: #ddd;
 
 }
 
-.score {
-
-	font-size: 10px;
-	color: #eee;
-	transition-duration: 0.3s;
-
+#countDown {
+	float: right;
+	position: absolute;
+	left: 53%;
+	font-size: 30px;
+	color: #ddd;
 }
 
 .content {
@@ -353,51 +358,3 @@ input[type=button]:hover {
 	background-color: #27271F;
 
 }
-
-.sidenav {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    background-color: #111;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 60px;
-    opacity: 0.98;
-}
-
-.sidenavDiv {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: 25px;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav .closebtn {
-	color: #eee;
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-    cursor: pointer;
-}
-
-.submissionHistDiv {
-
-	color: #ccc;
-	font-size: 18px;
-	padding: 10px;
-
-}
-
-#countDown {
-
-	
-	
-}
-
