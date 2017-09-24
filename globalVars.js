@@ -5,6 +5,7 @@ var endTimeStamp = 0;
 var currentQuestion = 0;
 var participantScore = 0;
 var duration = 90;
+var numberOfQuestions = 12;
 var attempts = [100, 5, 5, 5, 5, 5, 5, 5, 7, 7, 7, 9, 9];
 var scores = [0, 5, 5, 8, 8, 8, 10, 10, 15, 15, 15, 20, 20];
 var solved   = [true, false, false, false, false, false, 
@@ -20,15 +21,22 @@ var nwin = ngui.Window.get();
 
 function setVariables()
 {
+	var questionLinksHTML = "<hr style='width: 100%;'>";
+	for(let i=1;i<=numberOfQuestions;i++)
+	{
+		questionLinksHTML += "<div id='qn" + i + "' class='questionLink' onclick='displayQuestion("+i+")'>";
+		questionLinksHTML += "<div id='qn" + i + "T' class='questionNumber'>Question " + i + "</div>";
+		questionLinksHTML += "<div id='qn" + i + "S' class='questionStatus'></div>";
+		questionLinksHTML += "</div>" + (i == numberOfQuestions ? "<hr style='width: 100%;'>" : "<hr>");
+	}
+	document.getElementById("sideBar").innerHTML = questionLinksHTML;
 
-	
-	
 	questionNumberDiv = document.getElementById("appHeaderID");
 	questionDetailsDiv = document.getElementById("questionDescriptionID");
 	answerTextField = document.getElementById("answerText");
 	submitButton = document.getElementById("submitButton");
 
-	for(let i=1;i<=12;i++)
+	for(let i=1;i<=numberOfQuestions;i++)
 	{
 		document.getElementById("qn"+i+"S").innerHTML = attempts[i];
 		submissionHistory.push([]);
