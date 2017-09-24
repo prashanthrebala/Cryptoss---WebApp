@@ -29,7 +29,7 @@ b {
 
 hr { 
 	border: 0; 
-	height: 0.9px; 
+	height: 1px; 
 	width: 90%;
 	margin-top: 1px;
 	margin-bottom: 1px;
@@ -80,6 +80,7 @@ input[type=button]:hover {
 
 #gg {
 
+	display: flex;
 	height: 100%;
 	width: 100%;
 	padding: 0;
@@ -262,6 +263,7 @@ input[type=button]:hover {
 
 .content {
 
+	display: flex;
 	width: 100%;
 	height: 91%;
 	position: absolute;
@@ -277,8 +279,7 @@ input[type=button]:hover {
 	width: 18%;
 	background-color: #0F0D08;
 	float: left;
-	overflow-x: hidden;
-	overflow-y: scroll;
+	overflow-y: auto;
 
 }
 
@@ -295,7 +296,7 @@ input[type=button]:hover {
 
 .questionLink {
 
-	height: 9%;
+	height: 50px;
 	width: 100%;
 	background-color: #0F0D08;
 	color: #eee;
@@ -305,6 +306,7 @@ input[type=button]:hover {
 	font-size: 20px;
 	transition-duration: 0.4s;
 	align-items: center;
+	/*margin: 3px;*/
 	cursor: pointer;
 
 }

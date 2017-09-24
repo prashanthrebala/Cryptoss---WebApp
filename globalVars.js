@@ -4,6 +4,7 @@ var startTimeStamp = 0;
 var endTimeStamp = 0;
 var currentQuestion = 0;
 var participantScore = 0;
+var duration = 90;
 var attempts = [100, 5, 5, 5, 5, 5, 5, 5, 7, 7, 7, 9, 9];
 var scores = [0, 5, 5, 8, 8, 8, 10, 10, 15, 15, 15, 20, 20];
 var solved   = [true, false, false, false, false, false, 
@@ -14,9 +15,14 @@ var attempted = [true, false, false, false, false, false,
 var submissionHistory = [[]];
 var questionNumberDiv, questionDetailsDiv;
 var answerTextField, submitButton;
+var ngui = require('nw.gui');
+var nwin = ngui.Window.get();
 
 function setVariables()
 {
+
+	
+	
 	questionNumberDiv = document.getElementById("appHeaderID");
 	questionDetailsDiv = document.getElementById("questionDescriptionID");
 	answerTextField = document.getElementById("answerText");
@@ -29,7 +35,7 @@ function setVariables()
 	}
 
 	startTimeStamp = new Date().getTime();
-	endTimeStamp = startTimeStamp + 0.1 * 60 * 1000;
+	endTimeStamp = startTimeStamp + duration * 60000;
 	$('#countDown').countdown(endTimeStamp)
 		.on('update.countdown', function(event) 
 		{
@@ -40,6 +46,8 @@ function setVariables()
 		{
 			document.getElementById("countDown").innerHTML = "00:00:00";
 		});
+	nwin.show();
+	nwin.maximize();
 
 }
 
