@@ -8,11 +8,12 @@ var questions =
 		/* 1 */
 		1 : {
 
-			'questionStatement' : "<p>akujsbckas</p><p>dwjkedb</p>",
+			'questionStatement' : "",
 			'attempts' : 5,
 			'solved' : false,
 			'attempted' : false,
 			'score' : 5,
+			'answer' : ""
 
 		},
 
@@ -24,6 +25,7 @@ var questions =
 			'solved' : false,
 			'attempted' : false,
 			'score' : 5,
+			'answer' : ""
 
 		},
 
@@ -35,6 +37,7 @@ var questions =
 			'solved' : false,
 			'attempted' : false,
 			'score' : 5,
+			'answer' : ""
 
 		},
 
@@ -46,6 +49,7 @@ var questions =
 			'solved' : false,
 			'attempted' : false,
 			'score' : 7,
+			'answer' : ""
 
 		},
 
@@ -57,6 +61,7 @@ var questions =
 			'solved' : false,
 			'attempted' : false,
 			'score' : 8,
+			'answer' : ""
 
 		},
 
@@ -68,6 +73,7 @@ var questions =
 			'solved' : false,
 			'attempted' : false,
 			'score' : 10,
+			'answer' : ""
 
 		},
 
@@ -79,6 +85,7 @@ var questions =
 			'solved' : false,
 			'attempted' : false,
 			'score' : 12,
+			'answer' : ""
 
 		},
 
@@ -90,6 +97,7 @@ var questions =
 			'solved' : false,
 			'attempted' : false,
 			'score' : 12,
+			'answer' : ""
 
 		},
 
@@ -101,6 +109,7 @@ var questions =
 			'solved' : false,
 			'attempted' : false,
 			'score' : 15,
+			'answer' : ""
 
 		},
 
@@ -112,6 +121,7 @@ var questions =
 			'solved' : false,
 			'attempted' : false,
 			'score' : 15,
+			'answer' : ""
 
 		},
 
@@ -123,6 +133,7 @@ var questions =
 			'solved' : false,
 			'attempted' : false,
 			'score' : 20,
+			'answer' : ""
 
 		},
 
@@ -134,6 +145,7 @@ var questions =
 			'solved' : false,
 			'attempted' : false,
 			'score' : 20,
+			'answer' : ""
 
 		}
 

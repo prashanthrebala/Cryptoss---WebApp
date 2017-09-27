@@ -31,12 +31,12 @@ function setVariables()
 		questionLinksHTML += "</div>" + (i == numberOfQuestions ? "<hr style='width: 100%;'>" : "<hr>");
 		submissionHistory.push([]);
 	}
-	document.getElementById("sideBarID").innerHTML = questionLinksHTML;
+	$('#sideBarID').html(questionLinksHTML);
 
-	questionNumberDiv = document.getElementById("appHeaderID");
-	questionDetailsDiv = document.getElementById("questionDescriptionID");
-	answerTextField = document.getElementById("answerText");
-	submitButton = document.getElementById("submitButton");
+	// questionNumberDiv = document.getElementById("appHeaderID");
+	// questionDetailsDiv = document.getElementById("questionDescriptionID");
+	// answerTextField = document.getElementById("answerText");
+	// submitButton = document.getElementById("submitButton");
 
 	startTimeStamp = new Date().getTime();
 	endTimeStamp = startTimeStamp + duration * 60000;
@@ -58,24 +58,20 @@ function setVariables()
 function displayQuestion(n)
 {
 	currentQuestion = n;
-	questionNumberDiv.innerHTML = "Question " + currentQuestion;
 	currentQuestionJSON = questions[currentQuestion];
-	questionDetailsDiv.innerHTML = currentQuestionJSON['questionStatement'];
-	answerTextField.value = "";
+	$('#appHeaderID').text("Question " + currentQuestion);
+	$('#questionDescriptionID').html(currentQuestionJSON['questionStatement']);
+	$('#answerText').val('');
 }
 
 function openNav()
 { 
-	document.getElementById("myScore").innerHTML = participantScore;
-	document.getElementById("mySidenav").style.width = "23%"; 
-	document.getElementById("mySidenav").style.transition = "0.5s";
+	$('#myScore').text(participantScore);
+	$('#mySidenav').css({'width' : '23%', 'transition' : '0.5s'});
 }
 
 function closeNav()
-{ 
-	document.getElementById("mySidenav").style.width = "0"; 
-	document.getElementById("mySidenav").style.transition = "0.3s";
-}
+{ 	$('#mySidenav').css({'width' : '0', 'transition' : '0.3s'});}
 
 function submit()
 {
@@ -91,8 +87,8 @@ function submitX()
 
 	currentQuestionJSON['attempted'] = true;
 
-	var typedAnswer = answerTextField.value;
-	var cur = document.getElementById("qn"+currentQuestion+"S");
+	var typedAnswer = $('#answerText').val();
+	var id = "#qn"+currentQuestion+"S";
 
 	if(typedAnswer.length <= 0)
 		return;
@@ -107,19 +103,21 @@ function submitX()
 
 	if("aeiou".indexOf(typedAnswer) >= 0) 
 	{
-		cur.style.border = "2px solid #37B76C";
-		cur.style.color = "#37B76C";
-		cur.innerHTML = '&#10003;'
+		$('#successModal').delay(100).fadeIn();
+		$('#successModal').delay(300).fadeOut();
+		$(id).css({'border' : '2px solid #37B76C', 'color' : '#37B76C'});
+		$(id).html('&#10003;');
 		currentQuestionJSON['solved'] = true;
 		participantScore += currentQuestionJSON['score'];
-		document.getElementById("sDinner2").innerHTML = participantScore;
+		$('#sDinner2').text(participantScore);
 	}
 	else if(currentQuestionJSON['attempts'] > 0)
 	{
+		$('#wrongAnswerModal').delay(100).fadeIn();
+		$('#wrongAnswerModal').delay(300).fadeOut();
 		currentQuestionJSON['attempts']--;
-		cur.style.border = "2px solid #FF3F2F";
-		cur.style.color = "#FF3F2F";
-		cur.innerHTML = currentQuestionJSON['attempts'];
+		$(id).css({'border' : '2px solid #FF3F2F', 'color' : '#FF3F2F'});
+		$(id).text(currentQuestionJSON['attempts']);
 		if(currentQuestionJSON['attempts'] == 0)
 			currentQuestionJSON['solved'] = true;
 	}
