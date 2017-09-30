@@ -20,6 +20,16 @@ var answerTextField, submitButton;
 var ngui = require('nw.gui');
 var nwin = ngui.Window.get();
 
+function isSpaceChar(char){ return (char < 33 || char > 126);}
+
+function dropSpaceChars(string)
+{
+	var x = 0, y = string.length - 1;
+	while(isSpaceChar(string.charCodeAt(x))) x++;
+	while(isSpaceChar(string.charCodeAt(y))) y--;
+	return string.substr(x, y - x + 1);
+}
+
 function setVariables()
 {
 	var questionLinksHTML = "<hr style='width: 100%;'>";
@@ -61,7 +71,19 @@ function displayQuestion(n)
 	currentQuestionJSON = questions[currentQuestion];
 	$('#appHeaderID').text("Question " + currentQuestion);
 	$('#questionDescriptionID').html(currentQuestionJSON['questionStatement']);
+	// $('#questionDescriptionID').append("<div><input id='submitButton' type='button' \
+		// value='Show Test Case' style='height: 50px; width: auto; border: none;' onclick='getTestCase();'></div>");
+	// $('questionDescriptionID').append("<div>Test case: </div>")
 	$('#answerText').val('');
+}
+
+function copyToClipboard(element) 
+{
+	var $temp = $("<input>");
+	$("body").append($temp);
+	$temp.val($(element).text()).select();
+	document.execCommand("copy");
+	$temp.remove();
 }
 
 function openNav()
@@ -82,7 +104,7 @@ function submit()
 
 function submitX() 
 {
-	if(currentQuestionJSON['solved'])
+	if(currentQuestionJSON['solved'] || currentQuestionJSON['attempts'] <= 0)
 		return;
 
 	currentQuestionJSON['attempted'] = true;
@@ -90,14 +112,14 @@ function submitX()
 	var typedAnswer = $('#answerText').val();
 	var id = "#qn"+currentQuestion+"S";
 
+	typedAnswer = dropSpaceChars(typedAnswer);
+
 	if(typedAnswer.length <= 0)
 		return;
 
 	if(submissionHistory[currentQuestion].indexOf(typedAnswer) >= 0)
-	{
 		 if(!confirm("You have already submitted this answer for this question. Are you sure you want to submit again?"))
 		 		return;
-	}
 
 	submissionHistory[currentQuestion].push(typedAnswer);
 
@@ -118,8 +140,6 @@ function submitX()
 		currentQuestionJSON['attempts']--;
 		$(id).css({'border' : '2px solid #FF3F2F', 'color' : '#FF3F2F'});
 		$(id).text(currentQuestionJSON['attempts']);
-		if(currentQuestionJSON['attempts'] == 0)
-			currentQuestionJSON['solved'] = true;
 	}
 
 }
