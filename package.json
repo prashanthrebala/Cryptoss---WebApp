@@ -1,0 +1,8 @@
+{
+  "name": "nw-demo",
+  "version": "0.0.1",
+  "main": "Home.html",
+  "dependencies": {
+    "nedb": "^1.8.0"
+  }
+}
