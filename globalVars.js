@@ -1,24 +1,29 @@
 
 var buildPhase = true;
-var startTimeStamp = 0;
-var endTimeStamp = 0;
 var currentQuestion = 0;
 var currentQuestionJSON = null;
-var participantScore = 0;
 var duration = 90;
 var numberOfQuestions = 12;
-// var attempts = [100, 5, 5, 5, 5, 5, 5, 5, 7, 7, 7, 9, 9];
-// var scores = [0, 5, 5, 8, 8, 8, 10, 10, 15, 15, 15, 20, 20];
-// var solved   = [true, false, false, false, false, false, 
-// 				false, false, false, false, false, false, false];
-// var attempted = [true, false, false, false, false, false, 
-// 				false, false, false, false, false, false, false];
 
-var submissionHistory = [[]];
-var questionNumberDiv, questionDetailsDiv;
-var answerTextField, submitButton;
+var participant = 
+
+	{
+		'startTimeStamp': 0,
+		'timeElapsed': 0,
+		'score': 0,
+		'submissionHistory': [[]]
+
+	};
+
 var ngui = require('nw.gui');
 var nwin = ngui.Window.get();
+var DataStore = require('nedb');
+var path = require('path');
+var db = new DataStore(
+		{
+			filename : path.join(ngui.App.dataPath, 'Cryptoss-SuperHeroes.db'),
+			autoload : true
+		});
 
 function isSpaceChar(char){ return (char < 33 || char > 126);}
 
@@ -32,6 +37,9 @@ function dropSpaceChars(string)
 
 function setVariables()
 {
+	try{ launchApp(); }
+	catch(err){ console.log(err); }
+
 	var questionLinksHTML = "<hr style='width: 100%;'>";
 	for(let i=1;i<=numberOfQuestions;i++)
 	{
@@ -39,18 +47,13 @@ function setVariables()
 		questionLinksHTML += "<div id='qn" + i + "T' class='questionNumber'>Question " + i + "</div>";
 		questionLinksHTML += "<div id='qn" + i + "S' class='questionStatus'>" + questions[i]['attempts'] + "</div>";
 		questionLinksHTML += "</div>" + (i == numberOfQuestions ? "<hr style='width: 100%;'>" : "<hr>");
-		submissionHistory.push([]);
+		participant['submissionHistory'].push([]);
 	}
 	$('#sideBarID').html(questionLinksHTML);
 
-	// questionNumberDiv = document.getElementById("appHeaderID");
-	// questionDetailsDiv = document.getElementById("questionDescriptionID");
-	// answerTextField = document.getElementById("answerText");
-	// submitButton = document.getElementById("submitButton");
+	participant['startTimeStamp'] = new Date().getTime();
 
-	startTimeStamp = new Date().getTime();
-	endTimeStamp = startTimeStamp + duration * 60000;
-	$('#countDown').countdown(endTimeStamp)
+	$('#countDown').countdown(participant['startTimeStamp'] + duration * 60000)
 		.on('update.countdown', function(event) 
 		{
 			var format = '%H:%M:%S';
@@ -71,9 +74,6 @@ function displayQuestion(n)
 	currentQuestionJSON = questions[currentQuestion];
 	$('#appHeaderID').text("Question " + currentQuestion);
 	$('#questionDescriptionID').html(currentQuestionJSON['questionStatement']);
-	// $('#questionDescriptionID').append("<div><input id='submitButton' type='button' \
-		// value='Show Test Case' style='height: 50px; width: auto; border: none;' onclick='getTestCase();'></div>");
-	// $('questionDescriptionID').append("<div>Test case: </div>")
 	$('#answerText').val('');
 }
 
@@ -88,7 +88,7 @@ function copyToClipboard(element)
 
 function openNav()
 { 
-	$('#myScore').text(participantScore);
+	$('#myScore').text(participant['score']);
 	$('#mySidenav').css({'width' : '23%', 'transition' : '0.5s'});
 }
 
@@ -97,7 +97,6 @@ function closeNav()
 
 function submit()
 {
-	// alert(submissionHistory);
 	if(buildPhase)
 		submitX();
 }
@@ -117,11 +116,11 @@ function submitX()
 	if(typedAnswer.length <= 0)
 		return;
 
-	if(submissionHistory[currentQuestion].indexOf(typedAnswer) >= 0)
+	if(participant['submissionHistory'][currentQuestion].indexOf(typedAnswer) >= 0)
 		 if(!confirm("You have already submitted this answer for this question. Are you sure you want to submit again?"))
 		 		return;
 
-	submissionHistory[currentQuestion].push(typedAnswer);
+	participant['submissionHistory'][currentQuestion].push(typedAnswer);
 
 	if("aeiou".indexOf(typedAnswer) >= 0) 
 	{
@@ -130,8 +129,8 @@ function submitX()
 		$(id).css({'border' : '2px solid #37B76C', 'color' : '#37B76C'});
 		$(id).html('&#10003;');
 		currentQuestionJSON['solved'] = true;
-		participantScore += currentQuestionJSON['score'];
-		$('#sDinner2').text(participantScore);
+		participant['score'] += currentQuestionJSON['score'];
+		$('#sDinner2').text(participant['score']);
 	}
 	else if(currentQuestionJSON['attempts'] > 0)
 	{
@@ -142,4 +141,24 @@ function submitX()
 		$(id).text(currentQuestionJSON['attempts']);
 	}
 
+}
+
+function launchApp()
+{
+	db.find({}, function(err, docs)
+	{
+		if(docs.length == 0)
+		{
+			db.insert(
+				{
+					participant: participant,
+					questions: questions
+				}, function(err, newDocs){});
+		}
+		else
+		{
+			participant = docs[0].participant;
+			questions   = docs[0].questions;
+		}
+	});
 }
