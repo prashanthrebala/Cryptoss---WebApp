@@ -363,8 +363,8 @@ button:hover {
 .questionStatus {
 
 	border-radius: 50%;
-	height: 50%;
-	width: 11%;
+	height: 30px;
+	width: 30px;
 	background-color: #171510;
 	border: 2px solid #27271F;
 	font-size: 15px;
