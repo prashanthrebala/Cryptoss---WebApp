@@ -37,9 +37,6 @@ function dropSpaceChars(string)
 
 function setVariables()
 {
-	try{ launchApp(); }
-	catch(err){ console.log(err); }
-
 	var questionLinksHTML = "<hr style='width: 100%;'>";
 	for(let i=1;i<=numberOfQuestions;i++)
 	{
@@ -103,7 +100,7 @@ function submit()
 
 function submitX() 
 {
-	if(currentQuestionJSON['solved'] || currentQuestionJSON['attempts'] <= 0)
+	if(currentQuestion <= 0 || currentQuestionJSON['solved'] || currentQuestionJSON['attempts'] <= 0)
 		return;
 
 	currentQuestionJSON['attempted'] = true;
@@ -137,9 +134,15 @@ function submitX()
 		$('#wrongAnswerModal').delay(100).fadeIn();
 		$('#wrongAnswerModal').delay(300).fadeOut();
 		currentQuestionJSON['attempts']--;
+		questions[currentQuestion]['attempts']--;
 		$(id).css({'border' : '2px solid #FF3F2F', 'color' : '#FF3F2F'});
 		$(id).text(currentQuestionJSON['attempts']);
 	}
+	db.insert(
+				{
+					participant: participant,
+					questions: questions
+				}, function(err, newDocs){});
 
 }
 
@@ -159,6 +162,17 @@ function launchApp()
 		{
 			participant = docs[0].participant;
 			questions   = docs[0].questions;
+			$('#sDinner2').text(participant['score']);
 		}
+		setVariables();
 	});
 }
+
+
+$(document).ready(function() {
+	try{
+	 launchApp(); 
+	} catch(err){ console.log(err); }
+});
+// document.addEventListener('contextmenu', event => event.preventDefault());
+
