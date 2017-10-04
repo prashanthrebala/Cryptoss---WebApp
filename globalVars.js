@@ -3,26 +3,26 @@ var currentQuestion = 0;
 var duration = 90;
 var numberOfQuestions = 20;
 var defaultTries = [100, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
-						 7, 7, 7, 7, 7, 7, 7, 9, 9, 9];
+7, 7, 7, 7, 7, 7, 7, 9, 9, 9];
 
 var participant = 
 
-	{
-		'startTimeStamp': 0,
-		'endTimeStamp' : 0,
-		'score': 0,
-		'submissionHistory': [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
-	};
+{
+	'startTimeStamp': 0,
+	'endTimeStamp' : 0,
+	'score': 0,
+	'submissionHistory': [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+};
 
 var ngui = require('nw.gui');
 var nwin = ngui.Window.get();
 var DataStore = require('nedb');
 var path = require('path');
 var db = new DataStore(
-		{
-			filename : path.join(ngui.App.dataPath, 'Cryptoss-SuperHeroes.db'),
-			autoload : true
-		});
+{
+	filename : path.join(ngui.App.dataPath, 'Cryptoss-SuperHeroes_8.db'),
+	autoload : true
+});
 
 function isSpaceChar(char){ return (char < 33 || char > 126);}
 
@@ -54,15 +54,15 @@ function setVariables()
 			$("#qn" + i + "S").css({'border' : '2px solid #FF3F2F', 'color' : '#FF3F2F'});
 	}
 
-	$('#countDown').countdown(new Date().getTime() + duration * 60000)
-		.on('update.countdown', function(event) 
-		{
-			var format = '%H:%M:%S';
-			$(this).html(event.strftime(format));
-		})
-		.on('finish.countdown', function(event) 
-		{
-			$(this).text("00:00:00");
+	$('#countDown').countdown(participant['endTimeStamp'])
+	.on('update.countdown', function(event) 
+	{
+		var format = '%H:%M:%S';
+		$(this).html(event.strftime(format));
+	})
+	.on('finish.countdown', function(event) 
+	{
+		$(this).text("00:00:00");
 			//uncomment while deploying
 			$("#submitButton").css("pointer-events","none");
 			alert('Your time\'s up!');
@@ -91,18 +91,26 @@ function closeNav()
 
 function submit()
 {
-	submitX();
-// 	db.insert(
-// 			{
-// 				participant: participant,
-// 				questions: questions
-// 			}, function(err, newDocs){
-// 				console.log(err);
-// 				console.log(newDocs);
-// 			});
+	submitX(function(){
+		db.remove({}, { multi: true }, function (err, numRemoved) {
+			db.insert(
+			{
+				participant: participant,
+				questions: questions
+			}, function(err, newDocs){
+
+				console.log(err);
+				console.log(newDocs);
+			});
+		});
+		
+	});
+	
+	
+
 }
 
-function submitX() 
+function submitX(callback) 
 {
 	var typedAnswer = $('#answerText').val();
 	if(Sha256.hash(dropSpaceChars(typedAnswer)) === "2ebd69960e67153ba0592c42cb7eef226f53eef97333626deba0a82fee79f1cd" && participant['submissionHistory'][0].length == 0)
@@ -111,11 +119,12 @@ function submitX()
 		alert('You have an extra attempt for this question');
 		$('#answerText').val('');
 		participant['submissionHistory'][0].push('prashanthrebala');
-		return;
+		callback();
+		// return;
 	}
 
 	if(currentQuestion <= 0 || questions[currentQuestion]['solved'] || questions[currentQuestion]['attempts'] <= 0)
-		return;
+		callback();
 
 	questions[currentQuestion]['attempted'] = true;
 
@@ -124,66 +133,73 @@ function submitX()
 	typedAnswer = dropSpaceChars(typedAnswer);
 
 	if(typedAnswer.length <= 0)
-		return;
+		callback();
 
 	if(participant['submissionHistory'][currentQuestion].indexOf(typedAnswer) >= 0)
-		 if(!confirm("You have already submitted this answer for this question. Are you sure you want to submit again?"))
-		 		return;
+		if(!confirm("You have already submitted this answer for this question. Are you sure you want to submit again?"))
+			callback();
 
-	participant['submissionHistory'][currentQuestion].push(typedAnswer);
+		participant['submissionHistory'][currentQuestion].push(typedAnswer);
 
-	if(Sha256.hash(typedAnswer) === questions[currentQuestion]['answer']) 
-	{
-		$('#successModal').delay(100).fadeIn();
-		$('#successModal').delay(300).fadeOut();
-		questions[currentQuestion]['attempts'] = -1;
-		$(id).css({'border' : '2px solid #37B76C', 'color' : '#37B76C'});
-		$(id).html('&#10003;');
-		questions[currentQuestion]['solved'] = true;
-		participant['score'] += questions[currentQuestion]['score'];
-		$('#sDinner2').text(participant['score']);
-	}
-	else if(questions[currentQuestion]['attempts'] > 0)
-	{
-		$('#wrongAnswerModal').delay(100).fadeIn();
-		$('#wrongAnswerModal').delay(300).fadeOut();
-		questions[currentQuestion]['attempts']--;
-		$(id).css({'border' : '2px solid #FF3F2F', 'color' : '#FF3F2F'});
-		$(id).text(questions[currentQuestion]['attempts']);
-	}
-
-}
-
-function launchApp()
-{
-	db.find({}, function(err, docs)
-	{
-		if(docs.length == 0)
+		if(Sha256.hash(typedAnswer) === questions[currentQuestion]['answer']) 
 		{
-			console.log(docs)
-			participant['startTimeStamp'] = new Date().getTime();
-			participant['endTimeStamp']   = participant['startTimeStamp'] + duration * 60000;
-			db.insert(
+			$('#successModal').delay(100).fadeIn();
+			$('#successModal').delay(300).fadeOut();
+			questions[currentQuestion]['attempts'] = -1;
+			$(id).css({'border' : '2px solid #37B76C', 'color' : '#37B76C'});
+			$(id).html('&#10003;');
+			questions[currentQuestion]['solved'] = true;
+			participant['score'] += questions[currentQuestion]['score'];
+			$('#sDinner2').text(participant['score']);
+			callback();
+		}
+		else if(questions[currentQuestion]['attempts'] > 0)
+		{
+			$('#wrongAnswerModal').delay(100).fadeIn();
+			$('#wrongAnswerModal').delay(300).fadeOut();
+			
+			questions[currentQuestion]['attempts']--;
+			$(id).css({'border' : '2px solid #FF3F2F', 'color' : '#FF3F2F'});
+			$(id).text(questions[currentQuestion]['attempts']);
+			callback();
+		}
+
+	}
+
+	function launchApp()
+	{
+		db.find({}, function(err, docs)
+		{
+
+			if(docs.length == 0)
+			{
+				
+				participant['startTimeStamp'] = new Date().getTime();
+				participant['endTimeStamp']   = participant['startTimeStamp'] + duration * 60000;
+				db.insert(
 				{
 					participant: participant,
 					questions: questions
-				}, function(err, newDocs){});
-		}
-		else
-		{
-			console.log(docs[0]);
-			participant = docs[0].participant;
-			questions   = docs[0].questions;
-			$('#sDinner2').text(participant['score']);
-			setVariables();
-		}
+				}, function(err, newDocs){
+					setVariables();
+				});
+			}
+			else
+			{
+				console.log(docs[0]);
+				participant = docs[0].participant;
+				questions   = docs[0].questions;
+				
+				$('#sDinner2').text(participant['score']);
+				setVariables();
+			}
+		});
+	}
+
+
+	$(document).ready(function() {
+		try{ launchApp(); } 
+		catch(err){ console.log(err); }
 	});
-}
-
-
-$(document).ready(function() {
-	try{ launchApp(); } 
-	catch(err){ console.log(err); }
-});
-document.addEventListener('contextmenu', event => event.preventDefault());
+	document.addEventListener('contextmenu', event => event.preventDefault());
 
