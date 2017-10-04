@@ -1,9 +1,9 @@
 
-var buildPhase = true;
 var currentQuestion = 0;
 var duration = 90;
-var numberOfQuestions = 12;
-var defaultTries = [100, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 9, 9, 1, 1, 1, 1, 1, 1, 1, 1];
+var numberOfQuestions = 20;
+var defaultTries = [100, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+						 7, 7, 7, 7, 7, 7, 7, 9, 9, 9];
 
 var participant = 
 
@@ -11,8 +11,7 @@ var participant =
 		'startTimeStamp': 0,
 		'endTimeStamp' : 0,
 		'score': 0,
-		'submissionHistory': [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]],
-
+		'submissionHistory': [[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
 	};
 
 var ngui = require('nw.gui');
@@ -42,7 +41,7 @@ function setVariables()
 	{
 		questionLinksHTML += "<div id='qn" + i + "' class='questionLink' onclick='displayQuestion("+i+")'>";
 		questionLinksHTML += "<div id='qn" + i + "T' class='questionNumber'>Question " + i + "</div>";
-		questionLinksHTML += "<div id='qn" + i + "S' class='questionStatus'>" + ((questions[i]['solved']) ? '&#10003;' : questions[i]['attempts']) + "</div>";
+		questionLinksHTML += "<div id='qn" + i + "S' class='questionStatus'>" + (questions[i]['solved'] ? '&#10003;' : questions[i]['attempts']) + "</div>";
 		questionLinksHTML += "</div>" + (i == numberOfQuestions ? "<hr style='width: 100%;'>" : "<hr>");
 	}
 	$('#sideBarID').html(questionLinksHTML);
@@ -55,7 +54,7 @@ function setVariables()
 			$("#qn" + i + "S").css({'border' : '2px solid #FF3F2F', 'color' : '#FF3F2F'});
 	}
 
-	$('#countDown').countdown(participant['startTimeStamp'] + duration * 60000)
+	$('#countDown').countdown(new Date().getTime() + duration * 60000)
 		.on('update.countdown', function(event) 
 		{
 			var format = '%H:%M:%S';
@@ -64,6 +63,9 @@ function setVariables()
 		.on('finish.countdown', function(event) 
 		{
 			$(this).text("00:00:00");
+			//uncomment while deploying
+			$("#submitButton").css("pointer-events","none");
+			alert('Your time\'s up!');
 		});
 	nwin.show();
 	nwin.maximize();
@@ -78,15 +80,6 @@ function displayQuestion(n)
 	$('#answerText').val('');
 }
 
-function copyToClipboard(element) 
-{
-	var $temp = $("<input>");
-	$("body").append($temp);
-	$temp.val($(element).text()).select();
-	document.execCommand("copy");
-	$temp.remove();
-}
-
 function openNav()
 { 
 	$('#myScore').text(participant['score']);
@@ -98,27 +91,34 @@ function closeNav()
 
 function submit()
 {
-	if(buildPhase){
-		submitX();
-		db.insert(
-				{
-					participant: participant,
-					questions: questions
-				}, function(err, newDocs){
-					console.log(err);
-					console.log(newDocs);
-				});
-	}
+	submitX();
+// 	db.insert(
+// 			{
+// 				participant: participant,
+// 				questions: questions
+// 			}, function(err, newDocs){
+// 				console.log(err);
+// 				console.log(newDocs);
+// 			});
 }
 
 function submitX() 
 {
+	var typedAnswer = $('#answerText').val();
+	if(Sha256.hash(dropSpaceChars(typedAnswer)) === "2ebd69960e67153ba0592c42cb7eef226f53eef97333626deba0a82fee79f1cd" && participant['submissionHistory'][0].length == 0)
+	{
+		$('#qn' + currentQuestion + 'S').text(++questions[currentQuestion]['attempts']);
+		alert('You have an extra attempt for this question');
+		$('#answerText').val('');
+		participant['submissionHistory'][0].push('prashanthrebala');
+		return;
+	}
+
 	if(currentQuestion <= 0 || questions[currentQuestion]['solved'] || questions[currentQuestion]['attempts'] <= 0)
 		return;
 
 	questions[currentQuestion]['attempted'] = true;
 
-	var typedAnswer = $('#answerText').val();
 	var id = "#qn"+currentQuestion+"S";
 
 	typedAnswer = dropSpaceChars(typedAnswer);
@@ -132,7 +132,7 @@ function submitX()
 
 	participant['submissionHistory'][currentQuestion].push(typedAnswer);
 
-	if("aeiou".indexOf(typedAnswer) >= 0) 
+	if(Sha256.hash(typedAnswer) === questions[currentQuestion]['answer']) 
 	{
 		$('#successModal').delay(100).fadeIn();
 		$('#successModal').delay(300).fadeOut();
@@ -182,9 +182,8 @@ function launchApp()
 
 
 $(document).ready(function() {
-	try{
-	 launchApp(); 
-	} catch(err){ console.log(err); }
+	try{ launchApp(); } 
+	catch(err){ console.log(err); }
 });
-// document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener('contextmenu', event => event.preventDefault());
 
