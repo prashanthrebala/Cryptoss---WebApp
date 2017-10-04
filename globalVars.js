@@ -64,8 +64,8 @@ function setVariables()
 	{
 		$(this).text("00:00:00");
 			//uncomment while deploying
-			$("#submitButton").css("pointer-events","none");
-			alert('Your time\'s up!');
+			// $("#submitButton").css("pointer-events","none");
+			// alert('Your time\'s up!');
 		});
 	nwin.show();
 	nwin.maximize();
