@@ -3,7 +3,7 @@ var currentQuestion = 0;
 var duration = 90;
 var numberOfQuestions = 20;
 var defaultTries = [100, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
-7, 7, 7, 7, 7, 7, 7, 9, 9, 9];
+						 7, 7, 7, 7, 7, 7, 7, 9, 9, 9];
 
 var participant = 
 
@@ -66,7 +66,7 @@ function setVariables()
 			//uncomment while deploying
 			// $("#submitButton").css("pointer-events","none");
 			// alert('Your time\'s up!');
-		});
+	});
 	nwin.show();
 	nwin.maximize();
 
@@ -91,23 +91,20 @@ function closeNav()
 
 function submit()
 {
-	submitX(function(){
-		db.remove({}, { multi: true }, function (err, numRemoved) {
+	submitX(function()
+	{
+		db.remove({}, { multi: true }, function (err, numRemoved) 
+		{
 			db.insert(
 			{
 				participant: participant,
 				questions: questions
 			}, function(err, newDocs){
-
 				console.log(err);
 				console.log(newDocs);
 			});
 		});
-		
 	});
-	
-	
-
 }
 
 function submitX(callback) 
@@ -119,12 +116,11 @@ function submitX(callback)
 		alert('You have an extra attempt for this question');
 		$('#answerText').val('');
 		participant['submissionHistory'][0].push('prashanthrebala');
-		callback();
-		// return;
+		return callback();
 	}
 
 	if(currentQuestion <= 0 || questions[currentQuestion]['solved'] || questions[currentQuestion]['attempts'] <= 0)
-		callback();
+		return callback();
 
 	questions[currentQuestion]['attempted'] = true;
 
@@ -133,11 +129,11 @@ function submitX(callback)
 	typedAnswer = dropSpaceChars(typedAnswer);
 
 	if(typedAnswer.length <= 0)
-		callback();
+		return callback();
 
 	if(participant['submissionHistory'][currentQuestion].indexOf(typedAnswer) >= 0)
 		if(!confirm("You have already submitted this answer for this question. Are you sure you want to submit again?"))
-			callback();
+			return callback();
 
 		participant['submissionHistory'][currentQuestion].push(typedAnswer);
 
@@ -157,7 +153,6 @@ function submitX(callback)
 		{
 			$('#wrongAnswerModal').delay(100).fadeIn();
 			$('#wrongAnswerModal').delay(300).fadeOut();
-			
 			questions[currentQuestion]['attempts']--;
 			$(id).css({'border' : '2px solid #FF3F2F', 'color' : '#FF3F2F'});
 			$(id).text(questions[currentQuestion]['attempts']);
@@ -170,7 +165,6 @@ function submitX(callback)
 	{
 		db.find({}, function(err, docs)
 		{
-
 			if(docs.length == 0)
 			{
 				
@@ -180,16 +174,13 @@ function submitX(callback)
 				{
 					participant: participant,
 					questions: questions
-				}, function(err, newDocs){
-					setVariables();
-				});
+				},function(err, newDocs){	setVariables();	});
 			}
 			else
 			{
 				console.log(docs[0]);
 				participant = docs[0].participant;
 				questions   = docs[0].questions;
-				
 				$('#sDinner2').text(participant['score']);
 				setVariables();
 			}
@@ -197,7 +188,8 @@ function submitX(callback)
 	}
 
 
-	$(document).ready(function() {
+	$(document).ready(function() 
+	{
 		try{ launchApp(); } 
 		catch(err){ console.log(err); }
 	});
